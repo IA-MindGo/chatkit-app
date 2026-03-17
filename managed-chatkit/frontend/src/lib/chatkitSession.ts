@@ -46,10 +46,14 @@ export function createClientSecretFetcher(
         }
 
         return payload.client_secret;
-      } catch (err: any) {
-        lastError = err;
+      } catch (err: unknown) {
+        lastError = err instanceof Error ? err : new Error(String(err));
         // if this was a fetch-level failure (network), retry after a delay
-        if (attempt < 2 && err.message.match(/Failed to contact backend/)) {
+        if (
+          attempt < 2 &&
+          err instanceof Error &&
+          err.message.match(/Failed to contact backend/)
+        ) {
           await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
           continue;
         }

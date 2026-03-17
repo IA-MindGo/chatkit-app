@@ -12,8 +12,9 @@ export function ChatKitPanel() {
       return async (current: string | null) => {
         try {
           return await base(current);
-        } catch (err: any) {
-          setSessionError(err.message || String(err));
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : String(err);
+          setSessionError(message);
           throw err;
         }
       };
