@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { ChatKit, useChatKit } from "@openai/chatkit-react";
+import type { ChatKitOptions } from "@openai/chatkit";
 import { createClientSecretFetcher, getWorkflowId } from "../lib/chatkitSession";
 
 export function ChatKitPanel() {
@@ -44,9 +45,61 @@ export function ChatKitPanel() {
     );
   }
 
-  const chatkit = useChatKit({
-    api: { getClientSecret },
-  });
+  const options: ChatKitOptions = {
+    api: {
+      getClientSecret,
+    },
+    theme: {
+      colorScheme: 'dark',
+      radius: 'pill',
+      density: 'normal',
+      typography: {
+        baseSize: 16,
+        fontFamily:
+          '"OpenAI Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+        fontFamilyMono:
+          'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace',
+        fontSources: [
+          {
+            family: 'OpenAI Sans',
+            src: 'https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Regular.woff2',
+            weight: 400,
+            style: 'normal',
+            display: 'swap',
+          },
+        ],
+      },
+    },
+    composer: {
+      attachments: {
+        enabled: true,
+        maxCount: 5,
+        maxSize: 10485760,
+      },
+      tools: [
+        {
+          id: 'search_docs',
+          label: 'Search docs',
+          shortLabel: 'Docs',
+          placeholderOverride: 'Search documentation',
+          icon: 'book-open',
+          pinned: false,
+        },
+      ],
+    },
+    startScreen: {
+      greeting: '',
+      prompts: [
+        {
+          icon: 'circle-question',
+          label: 'What is ChatKit?',
+          prompt: 'What is ChatKit?',
+        },
+      ],
+    },
+  };
+
+  const chatkit = useChatKit(options);
 
   return (
     <div className="flex h-[90vh] w-full rounded-2xl bg-white shadow-sm transition-colors dark:bg-slate-900">
