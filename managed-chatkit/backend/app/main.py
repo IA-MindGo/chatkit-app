@@ -27,6 +27,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root() -> Mapping[str, str]:
+    return {"message": "Managed ChatKit Backend is running"}
+
+
 @app.get("/health")
 async def health() -> Mapping[str, str]:
     return {"status": "ok"}
