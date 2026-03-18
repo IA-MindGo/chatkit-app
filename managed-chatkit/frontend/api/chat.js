@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     // Call backend to create session
-    const backendUrl = process.env.BACKEND_URL || "http://127.0.0.1:8000";
+    const backendUrl = process.env.BACKEND_URL || "https://chatkit-backend-y0c9.onrender.com";
 
     const response = await fetch(`${backendUrl}/api/create-session`, {
       method: "POST",
