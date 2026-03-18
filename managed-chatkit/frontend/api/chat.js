@@ -25,18 +25,22 @@ export default async function handler(req, res) {
       }),
     });
 
+    const data = await response.json().catch(() => ({}));
+
     if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      return res.status(response.status).json({ error: error.error || "Failed to create session" });
+      const errorMsg = data.error || data.message || `Backend returned ${response.status}`;
+      console.error(`[/api/chat] Backend error: ${errorMsg}`, data);
+      return res.status(response.status).json({ error: errorMsg, details: data });
     }
 
-    const data = await response.json();
     res.status(200).json(data);
 
   } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error("[/api/chat] Server error:", errorMsg);
     res.status(500).json({ 
       error: "Server error", 
-      details: error instanceof Error ? error.message : String(error) 
+      details: errorMsg 
     });
   }
 }
