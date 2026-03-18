@@ -17,7 +17,7 @@ export function getWorkflowId() {
 
 export function createClientSecretFetcher(
   workflow: string,
-  endpoint = "/api/create-session"
+  endpoint = "/api/chat"
 ) {
   return async (currentSecret: string | null) => {
     if (currentSecret) return currentSecret;

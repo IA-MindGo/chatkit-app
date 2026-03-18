@@ -5,25 +5,38 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message } = req.body;
+    const { workflow } = req.body;
+    const workflowId = workflow?.id;
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    if (!workflowId) {
+      return res.status(400).json({ error: "Missing workflow id" });
+    }
+
+    // Call backend to create session
+    const backendUrl = process.env.BACKEND_URL || "http://127.0.0.1:8000";
+
+    const response = await fetch(`${backendUrl}/api/create-session`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        workflow: process.env.WORKFLOW_ID,
-        input: message,
+        workflow: { id: workflowId },
       }),
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      return res.status(response.status).json({ error: error.error || "Failed to create session" });
+    }
 
+    const data = await response.json();
     res.status(200).json(data);
 
   } catch (error) {
-    res.status(500).json({ error: "Server error", details: error.message });
+    res.status(500).json({ 
+      error: "Server error", 
+      details: error instanceof Error ? error.message : String(error) 
+    });
   }
 }
