@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd managed-chatkit/frontend && npm install && npm run build",
+  "outputDirectory": "managed-chatkit/frontend/dist",
+  "framework": "vite",
+  "env": {
+    "VITE_CHATKIT_WORKFLOW_ID": "@vite_chatkit_workflow_id",
+    "VITE_API_URL": "@vite_api_url"
+  }
+}
