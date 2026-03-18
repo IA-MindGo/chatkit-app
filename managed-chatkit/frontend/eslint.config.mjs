@@ -8,7 +8,7 @@ import { URL, fileURLToPath } from "node:url";
 
 export default [
   {
-    ignores: ["node_modules/**", "dist/**", ".next/**"],
+    ignores: ["node_modules/**", "dist/**", ".next/**", "api/**"],
   },
   js.configs.recommended,
   {
