@@ -1,7 +1,8 @@
 {
-  "buildCommand": "npm --prefix managed-chatkit/frontend run build",
-  "outputDirectory": "managed-chatkit/frontend/dist",
-  "installCommand": "npm install --prefix managed-chatkit/frontend",
+  "rootDirectory": "managed-chatkit/frontend",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
     {
