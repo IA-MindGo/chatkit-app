@@ -10,7 +10,7 @@
     "lint": "eslint . --ext ts,tsx --max-warnings=0"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@openai/chatkit-react": ">=1.1.1 <2.0.0",
