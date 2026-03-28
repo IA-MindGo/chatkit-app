@@ -17,7 +17,10 @@ export function getWorkflowId() {
 
 export function createClientSecretFetcher(
   workflow: string,
-  endpoint = "/api/create-session"
+  endpoint =
+    process.env.VITE_API_URL
+      ? `${process.env.VITE_API_URL.replace(/\/$/, "")}/api/create-session`
+      : "https://chatkit-backend-y0c9.onrender.com/api/create-session"
 ) {
   return async (currentSecret: string | null) => {
     if (currentSecret) return currentSecret;

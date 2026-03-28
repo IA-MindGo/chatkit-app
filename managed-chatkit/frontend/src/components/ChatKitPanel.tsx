@@ -105,7 +105,7 @@ export function ChatKitPanel() {
         <strong>Session error</strong>: {sessionError}
         <br />
         Confirm the backend is running at{' '}
-        <code>{process.env.VITE_API_URL ?? "http://127.0.0.1:8000"}</code>.
+        <code>{process.env.VITE_API_URL ?? "https://chatkit-backend-y0c9.onrender.com"}</code>.
       </div>
     );
   }
