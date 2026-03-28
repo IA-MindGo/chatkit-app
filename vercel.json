@@ -1,3 +1,6 @@
 {
-  "rootDirectory": "managed-chatkit/frontend"
+  "installCommand": "cd managed-chatkit/frontend && npm install",
+  "buildCommand": "cd managed-chatkit/frontend && npm run build",
+  "outputDirectory": "managed-chatkit/frontend/dist",
+  "framework": "vite"
 }
